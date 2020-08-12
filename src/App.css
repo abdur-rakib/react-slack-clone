@@ -14,8 +14,8 @@ body {
   color: white;
   height: 46px;
   line-height: 42px;
-  border-bottom: 1px solid whitesmoke;
-  background-color: #421f44;
+  border-bottom: 1px solid gray;
+  background-color: #350d36;
   display: flex;
 }
 
@@ -30,7 +30,7 @@ body {
   color: gray;
   border: 1px solid gray;
   border-radius: 6px;
-  background-color: #421f44;
+  background-color: #350d36;
 }
 
 .ant-input:focus,
@@ -41,7 +41,18 @@ body {
 
 .header__rightIcon {
   margin-top: -7px !important;
+  cursor: pointer;
 }
 .header__leftIcon {
   margin-top: -7px !important;
+  cursor: pointer;
+}
+
+/* Sidebar */
+.ant-layout-sider {
+  background-color: #3f0e40;
+  /* margin-top: -1px; */
+}
+.ant-menu-dark.ant-menu-inline {
+  background-color: #3f0e40;
 }

@@ -1,9 +1,8 @@
 import React from "react";
-import { Layout, AutoComplete, Input } from "antd";
+import { Layout, AutoComplete, Input, Tooltip } from "antd";
 import {
   ClockCircleOutlined,
   ExclamationCircleOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
 import Avatar from "antd/lib/avatar/avatar";
 const { Header } = Layout;
@@ -13,7 +12,9 @@ const Head = () => {
     <Header className="">
       <div className="header">
         <div className="header__leftIcon mx-2">
-          <ClockCircleOutlined />
+          <Tooltip placement="bottom" title="History">
+            <ClockCircleOutlined />
+          </Tooltip>
         </div>
         <div className="header__search mx-2">
           {/* <SearchOutlined /> */}
@@ -28,10 +29,14 @@ const Head = () => {
           </AutoComplete>
         </div>
         <div className="header__rightIcon mx-2">
-          <ExclamationCircleOutlined />
+          <Tooltip placement="bottom" title="Help">
+            <ExclamationCircleOutlined />
+          </Tooltip>
         </div>
       </div>
       <Avatar
+        shape="square"
+        dot
         src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
         className="mt-2"
       />
