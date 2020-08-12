@@ -1,12 +1,11 @@
 import React from "react";
 import "./App.css";
-import { Typography } from "antd";
-const { Title } = Typography;
+import Head from "./Component/Header/Head";
 
 const App = () => {
   return (
     <div>
-      <Title>Home</Title>
+      <Head />
     </div>
   );
 };

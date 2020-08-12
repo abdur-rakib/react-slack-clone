@@ -1,1 +1,47 @@
 @import "~antd/dist/antd.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Header */
+.ant-layout-header {
+  color: white;
+  height: 46px;
+  line-height: 42px;
+  border-bottom: 1px solid whitesmoke;
+  background-color: #421f44;
+  display: flex;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.ant-select-selection-search .ant-input {
+  padding: 0 20px;
+  color: gray;
+  border: 1px solid gray;
+  border-radius: 6px;
+  background-color: #421f44;
+}
+
+.ant-input:focus,
+.ant-input-focused {
+  box-shadow: none;
+  border: 1px solid white;
+}
+
+.header__rightIcon {
+  margin-top: -7px !important;
+}
+.header__leftIcon {
+  margin-top: -7px !important;
+}
