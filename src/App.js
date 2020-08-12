@@ -1,10 +1,12 @@
 import React from "react";
 import "./App.css";
+import { Typography } from "antd";
+const { Title } = Typography;
 
 const App = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <Title>Home</Title>
     </div>
   );
 };
