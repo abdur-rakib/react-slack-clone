@@ -25,7 +25,7 @@ const Head = () => {
               marginTop: "10px",
             }}
           >
-            <Input size="small" placeholder="Search LaggerUnited" enterButton />
+            <Input size="small" placeholder="Search LaggerUnited" />
           </AutoComplete>
         </div>
         <div className="header__rightIcon mx-2">
@@ -36,9 +36,8 @@ const Head = () => {
       </div>
       <Avatar
         shape="square"
-        dot
         src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-        className="mt-2"
+        className="mb-1 mt-2"
       />
     </Header>
   );

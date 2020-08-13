@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif !important;
 }
 
 /* Header */
@@ -17,6 +17,9 @@ body {
   border-bottom: 1px solid gray;
   background-color: #350d36;
   display: flex;
+  position: fixed;
+  width: 100%;
+  padding: 0 20px;
 }
 
 .header {
@@ -51,8 +54,63 @@ body {
 /* Sidebar */
 .ant-layout-sider {
   background-color: #3f0e40;
-  /* margin-top: -1px; */
+  margin-top: 46px;
 }
 .ant-menu-dark.ant-menu-inline {
   background-color: #3f0e40;
+}
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+.sider__header {
+  color: white;
+  margin: 10px;
+  margin-bottom: 15px;
+}
+
+.sider__name {
+  margin-top: 3px;
+}
+
+.ant-menu-item {
+  display: flex;
+  align-items: center;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background-color: #350d36;
+}
+.ant-menu-inline .ant-menu-item {
+  margin: 0 !important;
+}
+
+.ant-layout-content {
+  margin-top: 46px;
+  background-color: white;
+}
+.custom-switch {
+  padding-left: 0.25rem !important;
+}
+
+/* Chat */
+.chat__header {
+  margin: 14px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.anticon {
+  cursor: pointer;
+}
+.ant-modal-close-x {
+  display: none;
+}
+.ant-input:focus {
+  border-color: #40a9ff;
+}
+.ant-modal-body {
+  height: 152px;
+}
+.ant-modal-footer {
+  padding: 10px 24px;
 }

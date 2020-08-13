@@ -1,17 +1,68 @@
 import React from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button, message } from "antd";
 
 import {
+  PaperClipOutlined,
+  TeamOutlined,
   AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
+  CrownOutlined,
+  MoreOutlined,
+  SaveOutlined,
+  SelectOutlined,
+  StarFilled,
+  PushpinOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
+import SubMenu from "antd/lib/menu/SubMenu";
+import { useState } from "react";
+import { useEffect } from "react";
+import { db } from "../../firebase/util";
+import { Link } from "react-router-dom";
+import Modal from "antd/lib/modal/Modal";
+import { Form, Input } from "antd";
 
 const { Sider } = Layout;
 const SideBar = () => {
+  const [channels, setChannels] = useState([]);
+
+  const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleOk = () => {
+    if (name.trim().length === 0) {
+      message.error("Please enter name");
+    } else {
+      setLoading(true);
+      db.collection("rooms")
+        .add({
+          name,
+          description,
+          timestamp: new Date().toISOString(),
+          creadtedBy: "Abdur Rakib",
+        })
+        .then(() => {
+          setLoading(false);
+          setVisible(false);
+        });
+    }
+  };
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  useEffect(() => {
+    db.collection("rooms").onSnapshot((snapshot) => {
+      setChannels(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+        }))
+      );
+    });
+  }, []);
   return (
     <Sider
       style={{
@@ -21,25 +72,91 @@ const SideBar = () => {
         left: 0,
       }}
     >
-      <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
-        <Menu.Item key="1" icon={<UserOutlined />}>
-          nav 1
+      {/* Modal */}
+      <Modal
+        title="Add Channel"
+        visible={visible}
+        onOk={handleOk}
+        loading={loading}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            disabled={loading}
+            type="primary"
+            loading={loading}
+            onClick={handleOk}
+          >
+            {loading ? "Adding" : "Add"}
+          </Button>,
+        ]}
+      >
+        <div>
+          <Form.Item>
+            <Input
+              placeholder="Enter channel name"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Input.TextArea
+              placeholder="Enter channel description (not required)"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Item>
+        </div>
+      </Modal>
+
+      {/* End of Modal */}
+      <div className="d-flex align-items-center  sider__header">
+        <StarFilled style={{ color: "green" }} className="mr-1" />
+        <div className="sider__name mr-5">Abdur Rakib</div>
+        <SelectOutlined />
+      </div>
+      <div style={{ borderBottom: "1px solid gray" }}></div>
+      <Menu theme="dark" mode="inline">
+        <Menu.Item key="1" icon={<CrownOutlined />}>
+          Mentions & reactions
         </Menu.Item>
-        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-          nav 2
+        <Menu.Item key="2" icon={<SaveOutlined />}>
+          Saved items
         </Menu.Item>
-        <Menu.Item key="3" icon={<UploadOutlined />}>
-          nav 3
+        <Menu.Item key="3" icon={<MoreOutlined />}>
+          More
         </Menu.Item>
-        <Menu.Item key="4" icon={<BarChartOutlined />}>
-          nav 4
+        <Menu.Item key="4" icon={<TeamOutlined />}>
+          People & User groups
         </Menu.Item>
-        <Menu.Item key="5" icon={<CloudOutlined />}>
-          nav 5
+        <Menu.Item key="5" icon={<AppstoreOutlined />}>
+          Apps
         </Menu.Item>
-        <Menu.Item key="6" icon={<AppstoreOutlined />}>
-          nav 6
+        <Menu.Item
+          key="8"
+          onClick={() => setVisible(true)}
+          icon={<PlusOutlined />}
+        >
+          Add Channel
+        </Menu.Item>
+
+        <div style={{ borderBottom: "1px solid gray" }}></div>
+        {/* <Menu.Item key="7" icon={<PushpinOutlined />}>
+          Channels
+        </Menu.Item> */}
+
+        <SubMenu key="7" icon={<PushpinOutlined />} title="Channels">
+          {channels.length !== 0 &&
+            channels.map((channel) => (
+              <Menu.Item key={channel.id}>
+                <Link to={`/room/${channel.id}`}>#{channel.name} </Link>
+              </Menu.Item>
+            ))}
+        </SubMenu>
+        <div style={{ borderBottom: "1px solid gray" }}></div>
+        <Menu.Item key="6" icon={<PaperClipOutlined />}>
+          File Browser
         </Menu.Item>
       </Menu>
     </Sider>
