@@ -6,27 +6,28 @@ import { Layout } from "antd";
 import { BrowserRouter, Route } from "react-router-dom";
 import Switch from "react-bootstrap/esm/Switch";
 import Chat from "./Component/Chat/Chat";
-import { useState } from "react";
 import Login from "./Component/Login/Login";
 import { useEffect } from "react";
 import { auth } from "./firebase/util";
+import { useStateValue } from "./redux/StateProvider";
+import { actionTypes } from "./redux/reducer";
 const { Content } = Layout;
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [state, dispatch] = useStateValue();
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
-        setUser(userAuth);
-      } else {
-        setUser(null);
+        dispatch({
+          type: actionTypes.SET_USER,
+          payload: userAuth,
+        });
       }
     });
-  }, [user]);
-  console.log(user);
+  }, [state, dispatch]);
   return (
     <BrowserRouter>
-      {!user ? (
+      {!state.user ? (
         <Login />
       ) : (
         <>
@@ -39,7 +40,7 @@ const App = () => {
                 <Content style={{ overflow: "initial" }}>
                   <Switch>
                     <Route exact path="/">
-                      <h1>Welcome</h1>
+                      <h1 className="noMessage">Welcome</h1>
                     </Route>
                     <Route exact path="/room/:roomId">
                       <Chat />

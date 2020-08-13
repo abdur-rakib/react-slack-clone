@@ -1,13 +1,19 @@
 import React from "react";
 import { Button } from "antd";
 import { auth, provider } from "../../firebase/util";
-
+import { useStateValue } from "../../redux/StateProvider";
+import { actionTypes } from "../../redux/reducer";
 const Login = () => {
+  // eslint-disable-next-line
+  const [state, dispatch] = useStateValue();
   const signin = (e) => {
     auth
       .signInWithPopup(provider)
       .then((res) => {
-        console.log("res");
+        dispatch({
+          type: actionTypes.SET_USER,
+          payload: res.user,
+        });
       })
       .catch((err) => console.log(err));
   };
