@@ -50,7 +50,7 @@ const Chat = () => {
         style={{ borderBottom: "1px solid lightGray", marginLeft: "-5px" }}
       ></div>
       {roomMessages && roomMessages.length === 0 ? (
-        <p>No messages</p>
+        <p className="noMessage">No messages</p>
       ) : (
         roomMessages &&
         roomMessages.map((message) => (
