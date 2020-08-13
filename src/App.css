@@ -20,6 +20,7 @@ body {
   position: fixed;
   width: 100%;
   padding: 0 20px;
+  z-index: 100;
 }
 
 .header {
@@ -108,9 +109,32 @@ body {
 .ant-input:focus {
   border-color: #40a9ff;
 }
-.ant-modal-body {
-  height: 152px;
-}
+
 .ant-modal-footer {
   padding: 10px 24px;
+}
+
+/* Chat Header */
+.ant-layout-content {
+  position: relative;
+}
+
+/* message */
+.message {
+  display: flex;
+  align-items: center;
+  margin: 10px 26px;
+}
+
+.message > img {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+.message__info > p {
+  margin: 0;
+}
+.message__info {
+  font-size: 12px;
 }

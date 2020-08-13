@@ -36,6 +36,7 @@ const SideBar = () => {
       message.error("Please enter name");
     } else {
       setLoading(true);
+
       db.collection("rooms")
         .add({
           name,
@@ -46,6 +47,8 @@ const SideBar = () => {
         .then(() => {
           setLoading(false);
           setVisible(false);
+          setName("");
+          setDescription("");
         });
     }
   };
@@ -99,12 +102,14 @@ const SideBar = () => {
             <Input
               placeholder="Enter channel name"
               onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </Form.Item>
           <Form.Item>
             <Input.TextArea
               placeholder="Enter channel description (not required)"
               onChange={(e) => setDescription(e.target.value)}
+              value={description}
             />
           </Form.Item>
         </div>

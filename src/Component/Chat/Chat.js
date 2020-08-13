@@ -1,15 +1,41 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { StarOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { Tooltip } from "antd";
+import { Tooltip, Skeleton } from "antd";
+import { useEffect } from "react";
+import { useState } from "react";
+import { db } from "../../firebase/util";
+import Message from "../Message/Message";
 
 const Chat = () => {
   const { roomId } = useParams();
-  return (
-    <div>
+  const [roomDetails, setRoomDetails] = useState(null);
+  const [roomMessages, setRoomMessages] = useState(null);
+  useEffect(() => {
+    if (roomId) {
+      db.collection("rooms")
+        .doc(roomId)
+        .onSnapshot((snapshot) => {
+          setRoomDetails(snapshot.data());
+        });
+      db.collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) =>
+          setRoomMessages(
+            snapshot.docs.map((doc) => {
+              return { ...doc.data(), id: doc.id };
+            })
+          )
+        );
+    }
+  }, [roomId]);
+  const renderChat = roomDetails ? (
+    <div className="chat">
       <div className="chat__header">
         <div className="chat__headerLeft  d-flex align-items-center">
-          <span className="font-weight-bold mr-1">#{roomId}</span>
+          <span className="font-weight-bold mr-1">#{roomDetails.name}</span>
           <Tooltip placement="bottom" title="Star conversation">
             <StarOutlined />
           </Tooltip>
@@ -23,8 +49,25 @@ const Chat = () => {
       <div
         style={{ borderBottom: "1px solid lightGray", marginLeft: "-5px" }}
       ></div>
+      {roomMessages && roomMessages.length === 0 ? (
+        <p>No messages</p>
+      ) : (
+        roomMessages &&
+        roomMessages.map((message) => (
+          <Message key={message.id} message={message} />
+        ))
+      )}
     </div>
+  ) : (
+    <>
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+    </>
   );
+  return renderChat;
 };
 
 export default Chat;
