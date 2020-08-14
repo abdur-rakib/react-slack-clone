@@ -1,15 +1,22 @@
 import React from "react";
-import { Layout, AutoComplete, Input, Tooltip } from "antd";
+import { Layout, AutoComplete, Input, Tooltip, Popconfirm } from "antd";
 import {
   ClockCircleOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import Avatar from "antd/lib/avatar/avatar";
 import { useStateValue } from "../../redux/StateProvider";
+import { auth } from "../../firebase/util";
+import { actionTypes } from "../../redux/reducer";
 const { Header } = Layout;
 
 const Head = () => {
-  const [{ user }] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
+
+  const confirm = () => {
+    auth.signOut();
+    dispatch({ type: actionTypes.DELETE_USER });
+  };
   return (
     <Header className="">
       <div className="header">
@@ -36,7 +43,15 @@ const Head = () => {
           </Tooltip>
         </div>
       </div>
-      <Avatar shape="square" src={user.photoURL} className="mb-1 mt-2" />
+      <Popconfirm
+        placement="bottomRight"
+        title="Logout?"
+        onConfirm={confirm}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Avatar shape="square" src={user.photoURL} className="mb-1 mt-2" />
+      </Popconfirm>
     </Header>
   );
 };

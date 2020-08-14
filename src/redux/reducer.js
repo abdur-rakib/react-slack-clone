@@ -4,6 +4,7 @@ export const initialState = {
 
 export const actionTypes = {
   SET_USER: "SET_USER",
+  DELETE_USER: "DELETE_USER",
 };
 
 const reducer = (state, action) => {
@@ -12,6 +13,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case actionTypes.DELETE_USER:
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;

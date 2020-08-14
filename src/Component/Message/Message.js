@@ -1,9 +1,15 @@
 import React from "react";
 import dayjs from "dayjs";
+import { useStateValue } from "../../redux/StateProvider";
 
 const Message = ({ message }) => {
+  const [{ user }] = useStateValue();
   return (
-    <div className="message">
+    <div
+      className={`message ${
+        user.displayName === message.username ? "custom_pos" : ""
+      }`}
+    >
       <img src={message.userImage} className="rounded-circle" alt="user" />
       <div className="message__info">
         <p>

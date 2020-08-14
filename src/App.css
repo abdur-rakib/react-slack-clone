@@ -127,6 +127,14 @@ body {
   display: flex;
   align-items: center;
   margin: 10px 26px;
+  width: 60%;
+}
+.custom_pos {
+  margin-left: 60%;
+  /* background-color: rgba(65, 105, 225, 0.288); */
+  padding-left: 20px;
+  padding: 30px auto;
+  border-radius: 20px;
 }
 
 .message > img {

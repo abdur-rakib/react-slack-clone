@@ -124,7 +124,7 @@ const SideBar = () => {
       {/* End of Modal */}
       <div className="d-flex align-items-center  sider__header">
         <StarFilled style={{ color: "green" }} className="mr-1" />
-        <div className="sider__name mr-5">{user.displayName}</div>
+        <div className="sider__name mr-3">{user.displayName}</div>
         <SelectOutlined />
       </div>
       <div style={{ borderBottom: "1px solid gray" }}></div>
