@@ -20,9 +20,11 @@ import { db } from "../../firebase/util";
 import { Link } from "react-router-dom";
 import Modal from "antd/lib/modal/Modal";
 import { Form, Input } from "antd";
+import { useStateValue } from "../../redux/StateProvider";
 
 const { Sider } = Layout;
 const SideBar = () => {
+  const [{ user }] = useStateValue();
   const [channels, setChannels] = useState([]);
 
   const [visible, setVisible] = useState(false);
@@ -30,6 +32,9 @@ const SideBar = () => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const [state] = useStateValue();
+  const { displayName } = state.user;
 
   const handleOk = () => {
     if (name.trim().length === 0) {
@@ -42,13 +47,14 @@ const SideBar = () => {
           name,
           description,
           timestamp: new Date().toISOString(),
-          creadtedBy: "Abdur Rakib",
+          creadtedBy: displayName,
         })
         .then(() => {
           setLoading(false);
           setVisible(false);
           setName("");
           setDescription("");
+          message.success(`${name} added successfully`);
         });
     }
   };
@@ -118,7 +124,7 @@ const SideBar = () => {
       {/* End of Modal */}
       <div className="d-flex align-items-center  sider__header">
         <StarFilled style={{ color: "green" }} className="mr-1" />
-        <div className="sider__name mr-5">Abdur Rakib</div>
+        <div className="sider__name mr-5">{user.displayName}</div>
         <SelectOutlined />
       </div>
       <div style={{ borderBottom: "1px solid gray" }}></div>

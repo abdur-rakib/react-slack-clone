@@ -24,7 +24,8 @@ const App = () => {
         });
       }
     });
-  }, [state, dispatch]);
+    // eslint-disable-next-line
+  }, []);
   return (
     <BrowserRouter>
       {!state.user ? (

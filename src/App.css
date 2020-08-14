@@ -4,6 +4,9 @@
   margin: 0;
   padding: 0;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   font-family: "Inter", sans-serif !important;
@@ -171,4 +174,21 @@ body {
 }
 .login__container {
   text-align: center;
+}
+
+.ant-layout-content {
+  min-height: 100vh;
+}
+
+/* chat input */
+.chat {
+  min-height: 100vh;
+}
+
+.chatInput {
+  height: 50px;
+  position: fixed;
+  bottom: 0px;
+  min-width: 83%;
+  margin-left: 0;
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import dayjs from "dayjs";
 
 const Message = ({ message }) => {
   return (
@@ -8,7 +9,7 @@ const Message = ({ message }) => {
         <p>
           <span className="font-weight-bold">{message.username}</span>{" "}
           <span className="message__time">
-            {new Date(message.timestamp.toDate()).toLocaleTimeString()}
+            {dayjs(message.timestamp).format("h:m A")}
           </span>
         </p>
         <p>{message.message}</p>

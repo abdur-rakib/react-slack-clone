@@ -5,9 +5,11 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import Avatar from "antd/lib/avatar/avatar";
+import { useStateValue } from "../../redux/StateProvider";
 const { Header } = Layout;
 
 const Head = () => {
+  const [{ user }] = useStateValue();
   return (
     <Header className="">
       <div className="header">
@@ -34,11 +36,7 @@ const Head = () => {
           </Tooltip>
         </div>
       </div>
-      <Avatar
-        shape="square"
-        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-        className="mb-1 mt-2"
-      />
+      <Avatar shape="square" src={user.photoURL} className="mb-1 mt-2" />
     </Header>
   );
 };
